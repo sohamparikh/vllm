@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 import argparse
+import logging
 import time
 from datetime import datetime
 from itertools import product
@@ -381,8 +382,7 @@ class BenchmarkWorker:
                                                    shard_intermediate_size,
                                                    hidden_size, search_space,
                                                    is_fp16)
-
-        with torch.cuda.device(self.device_id):
+        with torch.cuda.device(0):
             for config in tqdm(search_space):
                 try:
                     kernel_time = benchmark_config(config,
